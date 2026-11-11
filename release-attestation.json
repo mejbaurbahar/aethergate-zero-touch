@@ -1,0 +1,28 @@
+{
+  "attestationId": "att_99875d7a57a304c2",
+  "specId": "spec_ecom_checkout_v1",
+  "specVersion": "1.2.0",
+  "implementationId": "impl_ai_candidate_flawed_v1_healed_pricing_healed_pii_healed_bola",
+  "timestamp": "2026-11-11T14:47:12.184Z",
+  "status": "VERIFIED_FOR_ZERO_TOUCH_RELEASE",
+  "verdict": "AUTONOMOUS_PASS",
+  "leadTime": {
+    "totalDurationMs": 33,
+    "subOneHourTargetMet": true
+  },
+  "qualityMetrics": {
+    "humanInterventionsRequired": 0,
+    "nearZeroInterventionTargetMet": true,
+    "invariantsPassed": 4,
+    "adversarialProbesPassed": 110,
+    "mutationScore": 100,
+    "securityVulnerabilitiesFound": 0,
+    "selfHealingIterationsApplied": 3
+  },
+  "provenance": {
+    "specDigest": "185cc8d17ab5c9425a6d35782735b300fde8e0145b77d0bf0a1a253957db81f4",
+    "implementationDigest": "53674a9148f469dbb8fa2e7f37af3603536d7b861fef426e29ea95e6f743a0d2",
+    "verificationDigest": "5a934d512198d806b57707db0a3004b30cc1fd41570d6db1b2df4cb03e5e038e",
+    "cryptographicSeal": "99875d7a57a304c2c22329adad72a0ea015e3c1b8165f90c89a49f1a3de303e3"
+  }
+}

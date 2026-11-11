@@ -1,0 +1,55 @@
+name: AetherGate Zero-Touch Release CI
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  zero-touch-verification:
+    name: Autonomous Invariant & Security Verification Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js (LTS)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Typecheck Spec & Gate
+        run: npm run typecheck
+
+      - name: Run Invariant & Mutation Test Suites
+        run: npm test
+
+      - name: Execute AetherGate Autonomous Release Demonstration
+        run: npm run demo
+
+      - name: Verify Cryptographic Attestation Output
+        run: |
+          if [ ! -f release-attestation.json ]; then
+            echo "::error::Release attestation was not generated!"
+            exit 1
+          fi
+          STATUS=$(node -e "console.log(require('./release-attestation.json').status)")
+          if [ "$STATUS" != "VERIFIED_FOR_ZERO_TOUCH_RELEASE" ]; then
+            echo "::error::Attestation rejected with status: $STATUS"
+            exit 1
+          fi
+          echo "✔ Verified for Zero-Touch Release with 0 Human Interventions!"
+
+      - name: Upload Release Attestation Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-attestation
+          path: release-attestation.json
+          retention-days: 30
